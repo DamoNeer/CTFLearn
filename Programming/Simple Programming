@@ -1,0 +1,20 @@
+#Can you help me? I need to know how many lines there are where the number of 0's is a multiple of 3 or the numbers of 1s is a multiple of 2. 
+#Please! Here is the file: https://mega.nz/#!7aoVEKhK!BAohJ0tfnP7bISIkbADK3qe1yNEkzjHXLKoJoKmqLys
+
+#!/bin/python3
+
+file1 = open('data.dat', 'r')
+lines = file1.readlines()
+
+counter = 0
+for line in lines:                #read through each line of the downloaded text
+    zero_counter = 0
+    one_counter = 0
+    for letter in line:           #read each character of the string
+        if letter == "0":
+            zero_counter += 1     #increase the zero_counter by 1 if the character matches 0
+        elif letter == "1":
+            one_counter += 1
+    if zero_counter % 3 == 0 or one_counter % 2 == 0:     #check to see if the number of 0 is multiple of 3 or number of 1 is even
+        counter += 1
+print(counter)
