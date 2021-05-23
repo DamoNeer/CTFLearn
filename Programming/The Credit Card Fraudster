@@ -1,0 +1,41 @@
+#!/bin/python3
+'''
+The little flower shop
+======================
+
+European Express Debit
+Card Number: 543210******1234
+SALE
+
+Please debit my account
+Amount: 25.00€
+Can you help me to recover the card number so that I can confirm with the flower merchant's bank the card number was used in that shop and is fraudulent?
+
+Hints:
+
+1/ Luhn_algorithm
+
+2/ Flag format is CTFlearn{card_number}
+'''
+
+file1 = open('six_digits.txt', 'r')           #I used Crunch to create a wordlist that contains 000000-999999
+lines = file1.readlines()
+
+for line in lines:
+    line = line.strip()
+    credit_card_string = '543210'+line+'1234' #I am adding the six digits to the given partial credit card number
+    credit_card_int = int(credit_card_string)
+    if credit_card_int % 123457 == 0:         #Checking to see if the credit card number is divisible by 123457
+        digits = list(map(int, credit_card_string))
+        weights = [2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1]
+        products = []
+
+        for i in range(len(digits)):          #Logic for Luhn Algorithm
+            product = digits[i]*weights[i]
+            if product > 9:
+                product = str(product)
+                product = int(product[0])+int(product[1])
+            products.append(product)
+
+        if sum(products) % 10 == 0:
+            print(credit_card_int)
